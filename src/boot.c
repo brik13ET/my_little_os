@@ -8,6 +8,8 @@
 
 #define	BOOT_CHECKSUM - ( 0x1BADB002 + BOOT_FLAGS )
 
+extern void kmain (void);
+
 struct	BOOT_HEADER_s
 {
 	uint32_t	MAGIC;
@@ -34,7 +36,8 @@ __attribute__((section(".multiboot")))  =
 	.mode_type = 0,
 	.width = 800, 
 	.height = 600, 
-	.depth = 8
+	.depth = 8,
+	.entry_addr = kmain
 };
 
 #endif
