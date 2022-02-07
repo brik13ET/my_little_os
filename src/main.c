@@ -35,7 +35,12 @@ void print (char* s)
 	}
 }
 
+extern void process_boot_info(void);
+
+extern void setup_stack(void);
+
 void kmain()
 {
+
 	print(__FUNCTION__);
 }

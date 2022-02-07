@@ -41,4 +41,4 @@ image: bin/kernel
 	$(OBJCOPY) -O binary bin/kernel bin/fda.bin
 
 vm: image
-	qemu-system-i386 -curses -fda bin/fda.bin
+	qemu-system-i386 -kernel bin/kernel -nographic 

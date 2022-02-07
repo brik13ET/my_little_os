@@ -1,7 +1,5 @@
 #include <stdint.h>
 
-#ifndef MANUAL_BOOT
-
 #ifndef BOOT_FLAGS
 #define	BOOT_FLAGS 0 | 1 << 2
 #endif
@@ -34,10 +32,8 @@ __attribute__((section(".multiboot")))  =
 	.FLAGS = BOOT_FLAGS, 
 	.CHECKSUM = BOOT_CHECKSUM, 
 	.mode_type = 0,
-	.width = 800, 
-	.height = 600, 
-	.depth = 8,
+	.width = 160, 
+	.height = 60, 
+	.depth = 0,
 	.entry_addr = kmain
 };
-
-#endif
