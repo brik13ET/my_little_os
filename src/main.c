@@ -1,14 +1,15 @@
 #include <stdint.h>
+#include <serial.h>
 
 uint8_t fmt = 0x07;
 
 struct vidChar
 {
-	uint8_t fmt;
 	uint8_t sym;
+	uint8_t fmt;
 } __attribute__((packed));
 
-struct vidChar * const vidbuf = 0xb8000;
+struct vidChar * const vidbuf = (struct vidChar *)0xb8000;
 
 uint32_t current = 0;
 
@@ -28,19 +29,18 @@ void print (char* s)
 
 	while (s[0] != 0)
 	{
-		vidbuf[current].sym = s;
+		vidbuf[current].sym = s[0];
 		vidbuf[current].fmt = fmt;
 		s++;
 		current ++;
 	}
 }
 
-extern void process_boot_info(void);
-
-extern void setup_stack(void);
-
 void kmain()
 {
-
-	print(__FUNCTION__);
+	char tmp[] = "kmain()\0";
+	serial_init();
+	serial_write(&tmp[0]);
+	clear();
+	print(&tmp[0]);
 }

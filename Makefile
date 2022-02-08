@@ -4,7 +4,7 @@ LD=$(CROSS)/bin/i686-elf-ld
 OBJCOPY=$(CROSS)/bin/i686-elf-objcopy
 PP=$(CROSS)/bin/i686-elf-cpp
 
-CCFLAGS=-c -ffreestanding -fno-exceptions -I./include $(CMD_DEF) 
+CCFLAGS=-c -ffreestanding -fno-exceptions -I./include $(CMD_DEF) -g -ggdb
 ASFLAGS=-felf
 LDFLAGS=-L$(CROSS)/lib -L$(CROSS)/lib/gcc/i686-elf/11.2.0 -lgcc -nostdlib
 
@@ -38,7 +38,10 @@ bin/kernel: $(addsuffix .o, $(CCFILES) $(ASFILES))
 all: bin/kernel
 	
 image: bin/kernel
-	$(OBJCOPY) -O binary bin/kernel bin/fda.bin
+	$(OBJCOPY) --strip-debug bin/kernel bin/kernel.elf
 
 vm: image
-	qemu-system-i386 -kernel bin/kernel -nographic 
+	qemu-system-i386 -kernel bin/kernel.elf -display none -serial stdio
+
+debug: image
+	qemu-system-i386 -kernel bin/kernel.elf -display none -s -S -serial file:serial.log

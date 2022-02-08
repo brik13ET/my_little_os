@@ -1,10 +1,10 @@
-ENTRY(kmain)
+ENTRY(_start)
 SECTIONS {
 	.multiboot 0x0000000 :
 	{
-		* ( .multiboot )
+		. = ALIGN(8);
+		KEEP(*(.multiboot))
 	}
-	. = 0x100000;
 	.code : { *(.code) }
 	.text : { *(.text) }
 	.data : 
