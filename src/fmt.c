@@ -10,7 +10,7 @@ struct vidChar
 
 volatile struct vidChar * const vidbuf = (struct vidChar *)0xb8000;
 
-volatile uint32_t position = 0;
+uint32_t position = 0;
 
 
 void clear (void)

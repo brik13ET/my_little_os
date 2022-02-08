@@ -5,12 +5,21 @@ SECTIONS {
 		. = ALIGN(8);
 		KEEP(*(.multiboot))
 	}
-	.code : { *(.code) }
-	.text : { *(.text) }
+	.text :
+	{
+		*(.text)
+		*(.code)
+	}
 	.data : 
 	{
 		*(.data)
 		*(.rodata)
 	}
 	.bss  : { *(.bss) }
+	
+	data_size = SIZEOF(.data) ;
+	text_size = SIZEOF(.text) ;
+
+	data_addr = ADDR(.data) ;
+	text_addr = ADDR(.text) ;
  }

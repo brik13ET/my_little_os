@@ -43,5 +43,8 @@ image: bin/kernel
 vm: image
 	qemu-system-i386 -m 64m -kernel bin/kernel.elf -curses -serial file:serial.log $(CMD_VM)
 
+blink_vm: image
+	qemu-system-i386 -m 64m -kernel bin/kernel.elf -display none -serial stdio $(CMD_VM)
+
 debug: image
 	qemu-system-i386 -m 64m -kernel bin/kernel.elf -display none -s -S -serial file:serial.log $(CMD_VM)

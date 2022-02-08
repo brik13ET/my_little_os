@@ -1,1 +1,2 @@
-bin/kernel.elf test_string
+bin/kernel.elf 
+Loading GDT..	OK

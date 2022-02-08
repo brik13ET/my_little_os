@@ -1,16 +1,12 @@
 #include <stdint.h>
 #include <serial.h>
-#include <fmt.h>
 #include <boot.h>
-
-
+#include <gdt.h>
 
 void kmain()
 {
-	char tmp[] = "kmain()\0";
-	char nl[] = "\n\0";
-	serial_write(cmdline);
-	serial_write(&nl[0]);
-	clear();
-	print(&tmp[0]);
+	serial_write((char*)mbinfo->cmdline);
+	serial_write("\nLoading GDT..\0");
+	load_gdt();
+	serial_write("\tOK\n\0");
 }
