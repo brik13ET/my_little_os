@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#define	BOOT_FLAGS (0 | (1 << 1))
+#define	BOOT_FLAGS (0 | (1 << 1) | (1 << 2) )
 #define BOOT_MAGIC 0x1BADB002
 #define	BOOT_CHECKSUM (0x100000000 - (BOOT_MAGIC + BOOT_FLAGS )) & 0xFFFFFFFF
 
@@ -59,11 +59,11 @@ __attribute__((section(".multiboot")))  =
 	.MAGIC = BOOT_MAGIC, 
 	.FLAGS = BOOT_FLAGS, 
 	.CHECKSUM = BOOT_CHECKSUM, 
-	/*.mode_type = 1,
-	.width = 80,
-	.height = 25,
+	.mode_type = 1,
+	.width = 120,
+	.height = 40,
 	.depth = 0
-	*/
+	
 };
 
 uint32_t process_boot_info ( struct multiboot_information* info)
