@@ -2,3 +2,4 @@
 bin/*
 *.c.o
 *.s.o
+serial.log

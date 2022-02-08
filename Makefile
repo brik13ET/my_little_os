@@ -41,7 +41,7 @@ image: bin/kernel
 	$(OBJCOPY) --strip-debug bin/kernel bin/kernel.elf
 
 vm: image
-	qemu-system-i386 -kernel bin/kernel.elf -display none -serial stdio
+	qemu-system-i386 -m 64m -kernel bin/kernel.elf -curses -serial file:serial.log $(CMD_VM)
 
 debug: image
-	qemu-system-i386 -kernel bin/kernel.elf -display none -s -S -serial file:serial.log
+	qemu-system-i386 -m 64m -kernel bin/kernel.elf -display none -s -S -serial file:serial.log $(CMD_VM)

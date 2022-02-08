@@ -2,6 +2,7 @@ global setup_stack
 global error_handler
 global _start
 
+
 extern process_boot_info ; retun amount of memory
 extern error_handler
 extern kmain

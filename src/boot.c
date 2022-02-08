@@ -1,8 +1,7 @@
 #include <stdint.h>
+#include <boot.h>
 
-#define	BOOT_FLAGS (0 | (1 << 1) | (1 << 2) )
-#define BOOT_MAGIC 0x1BADB002
-#define	BOOT_CHECKSUM (0x100000000 - (BOOT_MAGIC + BOOT_FLAGS )) & 0xFFFFFFFF
+char* cmdline;
 
 struct	BOOT_HEADER_s
 {
@@ -68,6 +67,7 @@ __attribute__((section(".multiboot")))  =
 
 uint32_t process_boot_info ( struct multiboot_information* info)
 {
+	cmdline = (char*)info->cmdline;
 	if (info->mem_lower < 640)
 		return (info->mem_lower << 10) ;
 	return (info->mem_upper << 10) ;
