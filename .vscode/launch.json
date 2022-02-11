@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "by-gdb",
+            "request": "launch",
+            "name": "Launch(gdb)",
+            "program": "${workspaceFolder}/bin/kernel",
+            "cwd": "${workspaceRoot}",
+            "commandsBeforeExec": [ "make debug" ],
+            "remote": { 
+                "enabled": true,
+                "address": "localhost:1234",
+                "mode": "remote",
+                "execfile": "${workspaceFolder}/bin/kernel"
+            }
+        }
+    ]
+}

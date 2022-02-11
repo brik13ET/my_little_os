@@ -14,6 +14,14 @@ mov eax, [esp + 3 * 4]
 mov [gdtr], ax
 lgdt [gdtr]
 
+jmp 0x8:.reload_cs ; See gdt.c
+.reload_cs:
+mov ax, 0x10
+mov ds, ax
+mov es, ax
+mov fs, ax
+mov gs, ax
+
 mov esp, ebp
 pop ebp
 ret

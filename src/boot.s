@@ -13,6 +13,7 @@ tmp_stack_bottom:
 
 section .text
 _start:
+cli
 cmp eax, 0x2BADB002
 jne error_handler
 
@@ -32,4 +33,5 @@ push eax
 ret
 
 error_handler:
+    cli
     hlt

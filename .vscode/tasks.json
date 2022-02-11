@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Debug build",
+            "type": "process",
+            "command": "make",
+            "args": [ "${env:CROSS}"],
+            "problemMatcher":
+            [
+                "$go"
+            ],
+            
+            "isBuildCommand": true,
+            "group":
+            {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run QEMU (Debug)",
+            "type": "process",
+            "command": "make",
+            "args": ["debug"]
+        },
+        {
+            "label": "Debug in GDB&QEMU",
+            "type": "process",
+            "args": ["${workspaceFolder}/bin/kernel"],
+            "command": "gdb",
+            "problemMatcher":
+            [
+                "$go"
+            ],
+            "dependsOn": [ "Debug build", "Run QEMU (Debug)" ],
+            "group":
+            {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+
+    ]
+}

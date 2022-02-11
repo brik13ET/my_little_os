@@ -42,9 +42,46 @@ void putch(char c)
     position ++;
 }
 
-uint32_t atos_s(uint32_t a, char* buf, uint32_t buf_len)
+char* xtos_s(uint32_t x, char* buf, uint32_t buf_len)
 {
-    assert_reached();
+	char symbols[] = "0123456789ABCDEF";
+	uint32_t buff_i = 0;
+	do
+	{
+		buf[buf_len - 2 - buff_i] = symbols[x % 16];
+		x = x / 16;
+		buff_i ++;
+	} while (x > 0 && buff_i < buf_len);
+	buf[buf_len - 1] = 0;
+	return buf + buff_i;
+}
+
+char* atos_s(uint32_t a, char* buf, uint32_t buf_len)
+{
+    char symbols[] = "0123456789";
+	uint32_t buff_i = 0;
+	do
+	{
+		buf[buf_len - 2 - buff_i] = symbols[a % 10];
+		a = a / 10;
+		buff_i ++;
+	} while (a > 0 && buff_i < buf_len);
+	buf[buf_len - 1] = 0;
+	return buf + buff_i;
+}
+
+char* btos_s(uint32_t b, char* s, uint32_t buf_len)
+{
+	char symbols[] = "01";
+	uint32_t buff_i = 0;
+	do
+	{
+		s[buf_len - 2 - buff_i] = symbols[b % 2];
+		b = b / 2;
+		buff_i ++;
+	} while (b > 0 && buff_i < buf_len);
+	s[buf_len - 1] = 0;
+	return s + buff_i;
 }
 
 uint32_t stoa_s(uint32_t a, char* buf, uint32_t buf_len)

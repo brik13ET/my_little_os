@@ -1,12 +1,18 @@
-CC=$(CROSS)/bin/i686-elf-gcc
+ifdef CROSS
+_CROSS=${CROSS}
+else
+$(warning No provoded $$CROSS)
+endif
+
+CC=$(_CROSS)/bin/i686-elf-gcc
 AS=nasm
-LD=$(CROSS)/bin/i686-elf-ld
-OBJCOPY=$(CROSS)/bin/i686-elf-objcopy
-PP=$(CROSS)/bin/i686-elf-cpp
+LD=$(_CROSS)/bin/i686-elf-ld
+OBJCOPY=$(_CROSS)/bin/i686-elf-objcopy
+PP=$(_CROSS)/bin/i686-elf-cpp
 
 CCFLAGS=-c -ffreestanding -fno-exceptions -I./include $(CMD_DEF) -g -ggdb
 ASFLAGS=-felf
-LDFLAGS=-L$(CROSS)/lib -L$(CROSS)/lib/gcc/i686-elf/11.2.0 -lgcc -nostdlib
+LDFLAGS=-L$(_CROSS)/lib -L$(_CROSS)/lib/gcc/i686-elf/11.2.0 -lgcc -nostdlib
 
 CCFILES=$(addprefix bin/, $(notdir $(wildcard src/*.c) ) )
 ASFILES=$(addprefix bin/, $(notdir $(wildcard src/*.s) ) )
@@ -44,7 +50,7 @@ vm: image
 	qemu-system-i386 -m 64m -kernel bin/kernel.elf -curses -serial file:serial.log $(CMD_VM)
 
 blink_vm: image
-	qemu-system-i386 -m 64m -kernel bin/kernel.elf -display none -serial stdio $(CMD_VM)
+	qemu-system-i386 -m 80m -kernel bin/kernel.elf -display none -serial stdio $(CMD_VM)
 
 debug: image
 	qemu-system-i386 -m 64m -kernel bin/kernel.elf -display none -s -S -serial file:serial.log $(CMD_VM)
